@@ -65,10 +65,14 @@ class AxiosCall extends Component {
 
         <div>
           <h1>{(this.state.renderType).toUpperCase()}</h1>
-          {/* {this.state.item.map((item) => {    //Showing data in string form
+          
+          {/* Showing data in string form */}
+          {/* {this.state.item.map((item) => {    
             return <pre key={item.id}>{JSON.stringify(item)}</pre>;   
           })} */}
-          {this.state.renderType === 'posts' && <Post posts={this.state.item}/>}
+
+          {/* Showing data in table form */}
+          {this.state.renderType === 'posts' && <Post posts={this.state.item}/>}  
           {this.state.renderType === 'comments' && <Comment comments = {this.state.item}/>}
           {this.state.renderType === 'users' && <Users user = {this.state.item}/>}
         </div>
