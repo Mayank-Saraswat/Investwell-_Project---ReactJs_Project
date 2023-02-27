@@ -11,6 +11,7 @@ export class Comment extends Component {
                 <th>name</th>
                 <th>email</th>
                 <th>body</th>
+                <th>Delete</th>
             </tr>
             {comments.map(i=>
                 <tr>
@@ -18,6 +19,7 @@ export class Comment extends Component {
                     <td>{i.name}</td>
                     <td>{i.email}</td>
                     <td>{i.body}</td>
+                    <td><button className= 'delete-btn' onClick={()=> this.props.handleDelete(i.id)}>Delete</button></td>
                     </tr>
             )}
         

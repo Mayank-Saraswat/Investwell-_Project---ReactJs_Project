@@ -11,6 +11,7 @@ export class Users extends Component {
                 <th>name</th>
                 <th>username</th>
                 <th>email</th>
+                <th>Delete</th>
             </tr>
             {user.map(i=>
                 <tr>
@@ -18,6 +19,7 @@ export class Users extends Component {
                     <td>{i.name}</td>
                     <td>{i.username}</td>
                     <td>{i.email}</td>
+                    <td><button className= 'delete-btn' onClick={()=> this.props.handleDelete(i.id)}>Delete</button></td>
                     </tr>
             )}
         

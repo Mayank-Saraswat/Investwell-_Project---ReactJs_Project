@@ -5,16 +5,23 @@ import Comment from "./Comment";
 import Users from "./Users";
 
 class AxiosCall extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      renderType: 'posts',
-      item: [],
-    };
-  }
-
-  componentDidMount() {
-    console.log("componentDidMountCalled", this.state.renderType);
+    constructor(props) {
+        super(props);
+        this.state = {
+            renderType: 'posts',
+            item: [],
+        };
+    }
+    handleDelete =(id) =>{
+        console.log(id);
+      const newList = this.state.item.filter(it=> it.id !== id);
+      this.setState({
+         item: newList,
+      })
+    }
+    
+    componentDidMount() {
+        console.log("componentDidMountCalled", this.state.renderType);
 
     axios
       .get('https://jsonplaceholder.typicode.com/posts')
@@ -38,6 +45,7 @@ class AxiosCall extends Component {
         );
     }
   }
+
 
   render() {
     return (
@@ -72,9 +80,9 @@ class AxiosCall extends Component {
           })} */}
 
           {/* Showing data in table form */}
-          {this.state.renderType === 'posts' && <Post posts={this.state.item}/>}  
-          {this.state.renderType === 'comments' && <Comment comments = {this.state.item}/>}
-          {this.state.renderType === 'users' && <Users user = {this.state.item}/>}
+          {this.state.renderType === 'posts' && <Post handleDelete ={this.handleDelete} posts={this.state.item}/>}  
+          {this.state.renderType === 'comments' && <Comment handleDelete ={this.handleDelete} comments = {this.state.item}/>}
+          {this.state.renderType === 'users' && <Users handleDelete ={this.handleDelete} user = {this.state.item}/>}
         </div>
       </div>
     );
