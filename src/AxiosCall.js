@@ -45,7 +45,21 @@ class AxiosCall extends Component {
         );
     }
   }
-
+  
+  //functions for sorting
+  compareBy = (key) => {
+    return function(a, b) {
+    if (a[key] < b[key]) return -1;
+    if (a[key] > b[key]) return 1;
+    return 0;
+    };
+  };
+   
+  sortBy = (key) => {
+    let arrayCopy = [...this.state.item];
+    arrayCopy.sort(this.compareBy(key));
+    this.setState({item: arrayCopy});
+  };
 
   render() {
     return (
@@ -80,9 +94,9 @@ class AxiosCall extends Component {
           })} */}
 
           {/* Showing data in table form */}
-          {this.state.renderType === 'posts' && <Post handleDelete ={this.handleDelete} posts={this.state.item}/>}  
-          {this.state.renderType === 'comments' && <Comment handleDelete ={this.handleDelete} comments = {this.state.item}/>}
-          {this.state.renderType === 'users' && <Users handleDelete ={this.handleDelete} user = {this.state.item}/>}
+          {this.state.renderType === 'posts' && <Post handleDelete ={this.handleDelete} posts={this.state.item} sorting = {this.sortBy}/>}  
+          {this.state.renderType === 'comments' && <Comment handleDelete ={this.handleDelete} comments = {this.state.item} sorting = {this.sortBy}/>}
+          {this.state.renderType === 'users' && <Users handleDelete ={this.handleDelete} user = {this.state.item} sorting = {this.sortBy}/>}
         </div>
       </div>
     );

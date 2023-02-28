@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 
 export class Post extends Component {
     
@@ -10,8 +12,8 @@ export class Post extends Component {
         <table>
             <tr>
                 <th>id</th>
-                <th>title</th>
-                <th>body</th>
+                <th>title<button className='sort-btn'><SortByAlphaIcon onClick = {() => this.props.sorting('title')}/></button></th>
+                <th>body<button className='sort-btn'><SortByAlphaIcon onClick = {() => this.props.sorting('body')}/></button></th>
                 <th>Delete</th>
             </tr>
             {posts.map(i=>
@@ -19,7 +21,7 @@ export class Post extends Component {
                     <td>{i.id}</td>
                     <td>{i.title}</td>
                     <td>{i.body}</td>
-                    <td><button className= 'delete-btn' onClick={()=> this.props.handleDelete(i.id)}>Delete</button></td>
+                    <td><button className= 'delete-btn' onClick={()=> this.props.handleDelete(i.id)}><DeleteIcon/></button></td>
                     </tr>
             )}
         
