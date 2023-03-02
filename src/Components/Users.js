@@ -3,7 +3,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 
 export function Users (props) {
-    // const user = this.props.user;
     return (
       <>
         <table>

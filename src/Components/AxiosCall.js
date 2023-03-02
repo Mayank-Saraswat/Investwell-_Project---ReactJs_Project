@@ -10,7 +10,6 @@ class AxiosCall extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // renderType: 'posts',
             item: [],
         };
     }
@@ -37,7 +36,6 @@ class AxiosCall extends Component {
       .get(`https://jsonplaceholder.typicode.com/${rendervalue}`)
       .then((res) =>
         this.setState({
-          // renderType : rendervalue,
           item: res.data,
 
         }));
@@ -89,11 +87,6 @@ class AxiosCall extends Component {
         
         <div>
           <h1>{(renderType).toUpperCase()}</h1>
-          
-          {/* Showing data in string form */}
-          {/* {this.state.item.map((item) => {    
-            return <pre key={item.id}>{JSON.stringify(item)}</pre>;   
-          })} */}
 
           {/* Showing data in table form */}
           {renderType === 'posts' && <Post handleDelete ={this.handleDelete} posts={this.state.item} sorting = {this.sortBy}/>}  
