@@ -4,27 +4,24 @@ import Post from "./Post";
 import Comment from "./Comment";
 import Users from "./Users";
 import {BrowserRouter, Link} from 'react-router-dom';
+let renderType = "posts";
 
 class AxiosCall extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            renderType: 'posts',
+            // renderType: 'posts',
             item: [],
         };
     }
 
     handleDelete =(id) =>{
-        console.log(id);
-      const newList = this.state.item.filter(it=> it.id !== id);
       this.setState({
-         item: newList,
+         item: this.state.item.filter(it=> it.id !== id),
       })
     }
     
     componentDidMount() {
-        console.log("componentDidMountCalled", this.state.renderType);
-
     axios
       .get('https://jsonplaceholder.typicode.com/posts')
       .then((res) =>
@@ -34,30 +31,19 @@ class AxiosCall extends Component {
       );
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log("componentdidUpdate", this.state.renderType);
-  //   console.log(this.state.item);
-  //   if (prevState.renderType !== this.state.renderType) {
-  //     axios
-  //       .get(`https://jsonplaceholder.typicode.com/${rendervalue}`)
-  //       .then((res) =>
-  //         this.setState({
-  //           renderType : rendervalue,
-  //           item: res.data,
-  //         })
-  //       );
-  //   }
-  // }
-  
   changeState =(rendervalue) =>{
-    axios
-        .get(`https://jsonplaceholder.typicode.com/${rendervalue}`)
-        .then((res) =>
-          this.setState({
-            renderType : rendervalue,
-            item: res.data,
-          })
-        );
+    if(renderType !== rendervalue){
+      axios
+      .get(`https://jsonplaceholder.typicode.com/${rendervalue}`)
+      .then((res) =>
+        this.setState({
+          // renderType : rendervalue,
+          item: res.data,
+
+        }));
+      renderType = rendervalue;
+    }
+    
   }
 
   //functions for sorting
@@ -77,7 +63,7 @@ class AxiosCall extends Component {
 
   render() {
     return (
-      <div>
+      <>
         <BrowserRouter>
         <Link to='/posts'><button
           className="btn"
@@ -102,7 +88,7 @@ class AxiosCall extends Component {
         </BrowserRouter>
         
         <div>
-          <h1>{(this.state.renderType).toUpperCase()}</h1>
+          <h1>{(renderType).toUpperCase()}</h1>
           
           {/* Showing data in string form */}
           {/* {this.state.item.map((item) => {    
@@ -110,11 +96,11 @@ class AxiosCall extends Component {
           })} */}
 
           {/* Showing data in table form */}
-          {this.state.renderType === 'posts' && <Post handleDelete ={this.handleDelete} posts={this.state.item} sorting = {this.sortBy}/>}  
-          {this.state.renderType === 'comments' && <Comment handleDelete ={this.handleDelete} comments = {this.state.item} sorting = {this.sortBy}/>}
-          {this.state.renderType === 'users' && <Users handleDelete ={this.handleDelete} user = {this.state.item} sorting = {this.sortBy}/>}
+          {renderType === 'posts' && <Post handleDelete ={this.handleDelete} posts={this.state.item} sorting = {this.sortBy}/>}  
+          {renderType === 'comments' && <Comment handleDelete ={this.handleDelete} comments = {this.state.item} sorting = {this.sortBy}/>}
+          {renderType === 'users' && <Users handleDelete ={this.handleDelete} user = {this.state.item} sorting = {this.sortBy}/>}
         </div>
-      </div>
+      </>
     );
   }
 }
